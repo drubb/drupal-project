@@ -75,6 +75,16 @@ class ScriptHandler {
       $fs->chmod($web_root . '/sites/default/settings.local.php', 0777);
     }
 
+    // Activate the local settings file in settings.php by uncommenting the last 3 lines
+    $lines = file($web_root . '/sites/default/settings.php');
+    $line3 = array_pop($lines);
+    $line2 = array_pop($lines);
+    $line1 = array_pop($lines);
+    $lines[] = substr($line1, 2);
+    $lines[] = substr($line2, 2);
+    $lines[] = substr($line3, 2);
+    $fs->dumpFile($web_root . '/sites/default/settings.php', implode('', $lines));
+
   }
 
   /**
