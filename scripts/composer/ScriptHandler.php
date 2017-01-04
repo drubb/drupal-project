@@ -49,7 +49,7 @@ class ScriptHandler {
 
     // Create a symbolic link to the public files directory
     if (!$fs->exists($web_root . '/sites/default/files')) {
-      $fs->symlink($web_root . '/sites/default/files', $project_root . '/files/public');
+      symlink($project_root . '/files/public', $web_root . '/sites/default/files');
     }
 
     // Prepare the settings file for installation
