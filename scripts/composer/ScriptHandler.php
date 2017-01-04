@@ -58,7 +58,12 @@ class ScriptHandler {
       $fs->touch(getcwd() . '/drush/custom/.gitkeep');
     }
 
-    // Prepare the settings file for installation
+    // Create a symbolic link to the public files directory
+    if (!$fs->exists($root . '/sites/default/files')) {
+      $fs->symlink($root . '/sites/default/files', getcwd() . '/files/public');
+    }
+
+      // Prepare the settings file for installation
     if (!$fs->exists($root . '/sites/default/settings.php') and $fs->exists($root . '/sites/default/default.settings.php')) {
       $fs->copy($root . '/sites/default/default.settings.php', $root . '/sites/default/settings.php');
       $fs->chmod($root . '/sites/default/settings.php', 0666);
@@ -70,11 +75,6 @@ class ScriptHandler {
       $fs->copy($root . '/sites/default/default.services.yml', $root . '/sites/default/services.yml');
       $fs->chmod($root . '/sites/default/services.yml', 0666);
       $event->getIO()->write("Create a sites/default/services.yml file with chmod 0666");
-    }
-
-    // Create a symbolic link to the public files directory
-    if (!$fs->exists($root . '/sites/default/files')) {
-      $fs->symlink($root . '/sites/default/files', getcwd() . '/files/public');
     }
 
     // Add a local settings file
