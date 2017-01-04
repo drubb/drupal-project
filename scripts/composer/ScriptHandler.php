@@ -76,6 +76,15 @@ class ScriptHandler {
     if (!$fs->exists($root . '/sites/default/files')) {
       $fs->symlink($root . '/sites/default/files', getcwd() . '/files/public');
     }
+
+    // Add a local settings file
+    if (!$fs->exists($root . '/sites/default/local.settings.php')) {
+      $settings = '<?php' . PHP_EOL;
+      $settings .= '$settings["file_public_path"] = "sites/default/files";' . PHP_EOL;
+      $settings .= '$settings["file_private_path"] = "' . getcwd() . '/files/private";' . PHP_EOL;
+      $fs->dumpFile($root . '/sites/default/local.settings.php', $settings);
+    }
+
   }
 
   /**
