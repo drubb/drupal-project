@@ -18,71 +18,60 @@ class ScriptHandler {
   }
 
   public static function createRequiredFiles(Event $event) {
-    $fs = new Filesystem();
-    $root = static::getDrupalRoot(getcwd());
 
+    $fs = new Filesystem();
+    $project_root = getcwd();
+    $web_root = static::getDrupalRoot($project_root);
+
+    // List directories to be created during install
     $dirs = [
-      'libraries',
-      'modules',
-      'profiles',
-      'themes',
+      "$web_root/libraries/contrib",
+      "$web_root/libraries/custom",
+      "$web_root/modules/contrib",
+      "$web_root/modules/custom",
+      "$web_root/profiles/contrib",
+      "$web_root/profiles/custom",
+      "$web_root/themes/custom",
+      "$web_root/themes/custom",
+      "$project_root/drush/contrib",
+      "$project_root/drush/custom",
+      "$project_root/files/private",
+      "$project_root/files/public",
     ];
 
-    // Required for unit testing
+    // Create the listed directories
     foreach ($dirs as $dir) {
-      if (!$fs->exists($root . '/'. $dir)) {
-        $fs->mkdir($root . '/'. $dir . '/contrib');
-        $fs->touch($root . '/'. $dir . '/contrib/.gitkeep');
-        $fs->mkdir($root . '/'. $dir . '/custom');
-        $fs->touch($root . '/'. $dir . '/custom/.gitkeep');
+      if (!$fs->exists($dir)) {
+        $fs->mkdir($dir, 0755);
+        $fs->touch($dir . '/.gitkeep');
       }
     }
 
-    // Prepare the files directories
-    if (!$fs->exists(getcwd() . '/files/public')) {
-      $fs->mkdir(getcwd() . '/files/public');
-      $fs->touch(getcwd() . '/files/public/.gitkeep');
-    }
-    if (!$fs->exists(getcwd() . '/files/private')) {
-      $fs->mkdir(getcwd() . '/files/private');
-      $fs->touch(getcwd() . '/files/private/.gitkeep');
-    }
-
-    // Prepare drush contrib and custom folders
-    if (!$fs->exists(getcwd() . '/drush/contrib')) {
-      $fs->mkdir(getcwd() . '/drush/contrib');
-      $fs->touch(getcwd() . '/drush/contrib/.gitkeep');
-    }
-    if (!$fs->exists(getcwd() . '/drush/custom')) {
-      $fs->mkdir(getcwd() . '/drush/custom');
-      $fs->touch(getcwd() . '/drush/custom/.gitkeep');
-    }
-
     // Create a symbolic link to the public files directory
-    if (!$fs->exists($root . '/sites/default/files')) {
-      $fs->symlink($root . '/sites/default/files', getcwd() . '/files/public');
+    if (!$fs->exists($web_root . '/sites/default/files')) {
+      $fs->symlink($web_root . '/sites/default/files', $project_root . '/files/public');
     }
 
-      // Prepare the settings file for installation
-    if (!$fs->exists($root . '/sites/default/settings.php') and $fs->exists($root . '/sites/default/default.settings.php')) {
-      $fs->copy($root . '/sites/default/default.settings.php', $root . '/sites/default/settings.php');
-      $fs->chmod($root . '/sites/default/settings.php', 0666);
+    // Prepare the settings file for installation
+    if (!$fs->exists($web_root . '/sites/default/settings.php') and $fs->exists($web_root . '/sites/default/default.settings.php')) {
+      $fs->copy($web_root . '/sites/default/default.settings.php', $web_root . '/sites/default/settings.php');
+      $fs->chmod($web_root . '/sites/default/settings.php', 0666);
       $event->getIO()->write("Create a sites/default/settings.php file with chmod 0666");
     }
 
     // Prepare the services file for installation
-    if (!$fs->exists($root . '/sites/default/services.yml') and $fs->exists($root . '/sites/default/default.services.yml')) {
-      $fs->copy($root . '/sites/default/default.services.yml', $root . '/sites/default/services.yml');
-      $fs->chmod($root . '/sites/default/services.yml', 0666);
+    if (!$fs->exists($web_root . '/sites/default/services.yml') and $fs->exists($web_root . '/sites/default/default.services.yml')) {
+      $fs->copy($web_root . '/sites/default/default.services.yml', $web_root . '/sites/default/services.yml');
+      $fs->chmod($web_root . '/sites/default/services.yml', 0666);
       $event->getIO()->write("Create a sites/default/services.yml file with chmod 0666");
     }
 
     // Add a local settings file
-    if (!$fs->exists($root . '/sites/default/local.settings.php')) {
+    if (!$fs->exists($web_root . '/sites/default/local.settings.php')) {
       $settings = '<?php' . PHP_EOL;
       $settings .= '$settings["file_public_path"] = "sites/default/files";' . PHP_EOL;
       $settings .= '$settings["file_private_path"] = "' . getcwd() . '/files/private";' . PHP_EOL;
-      $fs->dumpFile($root . '/sites/default/local.settings.php', $settings);
+      $fs->dumpFile($web_root . '/sites/default/local.settings.php', $settings);
     }
 
   }
