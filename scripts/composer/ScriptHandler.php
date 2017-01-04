@@ -57,14 +57,14 @@ class ScriptHandler {
     // Prepare the settings file for installation
     if (!$fs->exists($web_root . '/sites/default/settings.php') and $fs->exists($web_root . '/sites/default/default.settings.php')) {
       $fs->copy($web_root . '/sites/default/default.settings.php', $web_root . '/sites/default/settings.php');
-      $fs->chmod($web_root . '/sites/default/settings.php', 0666);
+      $fs->chmod($web_root . '/sites/default/settings.php', 0777);
       $event->getIO()->write("Create a sites/default/settings.php file with chmod 0666");
     }
 
     // Prepare the services file for installation
     if (!$fs->exists($web_root . '/sites/default/services.yml') and $fs->exists($web_root . '/sites/default/default.services.yml')) {
       $fs->copy($web_root . '/sites/default/default.services.yml', $web_root . '/sites/default/services.yml');
-      $fs->chmod($web_root . '/sites/default/services.yml', 0666);
+      $fs->chmod($web_root . '/sites/default/services.yml', 0777);
       $event->getIO()->write("Create a sites/default/services.yml file with chmod 0666");
     }
 
@@ -74,6 +74,7 @@ class ScriptHandler {
       $settings .= '$settings["file_public_path"] = "sites/default/files";' . PHP_EOL;
       $settings .= '$settings["file_private_path"] = "' . getcwd() . '/files/private";' . PHP_EOL;
       $fs->dumpFile($web_root . '/sites/default/settings.local.php', $settings);
+      $fs->chmod($web_root . '/sites/default/settings.local.php', 0777);
     }
 
   }
