@@ -58,14 +58,12 @@ class ScriptHandler {
     if (!$fs->exists($web_root . '/sites/default/settings.php') and $fs->exists($web_root . '/sites/default/default.settings.php')) {
       $fs->copy($web_root . '/sites/default/default.settings.php', $web_root . '/sites/default/settings.php');
       $fs->chmod($web_root . '/sites/default/settings.php', 0777);
-      $event->getIO()->write("Create a sites/default/settings.php file with chmod 0666");
     }
 
     // Prepare the services file for installation
     if (!$fs->exists($web_root . '/sites/default/services.yml') and $fs->exists($web_root . '/sites/default/default.services.yml')) {
       $fs->copy($web_root . '/sites/default/default.services.yml', $web_root . '/sites/default/services.yml');
       $fs->chmod($web_root . '/sites/default/services.yml', 0777);
-      $event->getIO()->write("Create a sites/default/services.yml file with chmod 0666");
     }
 
     // Add a local settings file
