@@ -49,6 +49,7 @@ class ScriptHandler {
     }
     $fs->chmod("$project_root/files/private", 0777);
     $fs->chmod("$project_root/files/public", 0777);
+    $fs->chmod("$project_root/config/sync", 0777);
 
     // Create a symbolic link to the public files directory
     if (!$fs->exists($web_root . '/sites/default/files')) {
