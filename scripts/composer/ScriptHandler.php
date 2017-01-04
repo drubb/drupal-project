@@ -22,6 +22,7 @@ class ScriptHandler {
     $root = static::getDrupalRoot(getcwd());
 
     $dirs = [
+      'libraries',
       'modules',
       'profiles',
       'themes',
@@ -30,8 +31,10 @@ class ScriptHandler {
     // Required for unit testing
     foreach ($dirs as $dir) {
       if (!$fs->exists($root . '/'. $dir)) {
-        $fs->mkdir($root . '/'. $dir);
-        $fs->touch($root . '/'. $dir . '/.gitkeep');
+        $fs->mkdir($root . '/'. $dir . '/contrib');
+        $fs->touch($root . '/'. $dir . '/contrib/.gitkeep');
+        $fs->mkdir($root . '/'. $dir . '/custom');
+        $fs->touch($root . '/'. $dir . '/custom/.gitkeep');
       }
     }
 
