@@ -72,12 +72,9 @@ class ScriptHandler {
       $event->getIO()->write("Create a sites/default/services.yml file with chmod 0666");
     }
 
-    // Create the files directory with chmod 0777
+    // Create a symbolic link to the public files directory
     if (!$fs->exists($root . '/sites/default/files')) {
-      $oldmask = umask(0);
-      $fs->mkdir($root . '/sites/default/files', 0777);
-      umask($oldmask);
-      $event->getIO()->write("Create a sites/default/files directory with chmod 0777");
+      $fs->symlink($root . '/sites/default/files', getcwd() . '/files/public');
     }
   }
 
