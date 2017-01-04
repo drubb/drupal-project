@@ -80,9 +80,9 @@ class ScriptHandler {
     $line3 = array_pop($lines);
     $line2 = array_pop($lines);
     $line1 = array_pop($lines);
-    $lines[] = substr($line1, 2);
-    $lines[] = substr($line2, 2);
-    $lines[] = substr($line3, 2);
+    $lines[] = ltrim($line1, '# ');
+    $lines[] = ltrim($line2, '# ');
+    $lines[] = ltrim($line3, '# ');
     $fs->dumpFile($web_root . '/sites/default/settings.php', implode('', $lines));
 
   }
