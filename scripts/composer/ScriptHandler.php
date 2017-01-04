@@ -38,6 +38,16 @@ class ScriptHandler {
       }
     }
 
+    // Prepare the files directories
+    if (!$fs->exists(getcwd() . '/files/public')) {
+      $fs->mkdir(getcwd() . '/files/public');
+      $fs->touch(getcwd() . '/files/public/.gitkeep');
+    }
+    if (!$fs->exists(getcwd() . '/files/private')) {
+      $fs->mkdir(getcwd() . '/files/private');
+      $fs->touch(getcwd() . '/files/private/.gitkeep');
+    }
+
     // Prepare the settings file for installation
     if (!$fs->exists($root . '/sites/default/settings.php') and $fs->exists($root . '/sites/default/default.settings.php')) {
       $fs->copy($root . '/sites/default/default.settings.php', $root . '/sites/default/settings.php');
