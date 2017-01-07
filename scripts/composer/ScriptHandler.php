@@ -88,6 +88,12 @@ class ScriptHandler {
     $lines[] = ltrim($line3, '# ');
     $fs->dumpFile($web_root . '/sites/default/settings.php', implode('', $lines));
 
+    // Remove stuff leftover by composer project
+    $stuff = ['LICENSE', 'scripts', '.travis.yml', 'README.md', 'phpunit.xml.dist'];
+    foreach ($stuff as $item) {
+      $fs->remove("$project_root/$item");
+    }
+
   }
 
   /**
