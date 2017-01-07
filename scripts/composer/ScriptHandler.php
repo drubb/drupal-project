@@ -89,7 +89,7 @@ class ScriptHandler {
     $fs->dumpFile($web_root . '/sites/default/settings.php', implode('', $lines));
 
     // Remove stuff leftover by composer project
-    $stuff = ['LICENSE', 'scripts', '.travis.yml', 'README.md', 'phpunit.xml.dist'];
+    $stuff = ['LICENSE', '.travis.yml', 'README.md', 'phpunit.xml.dist'];
     foreach ($stuff as $item) {
       $fs->remove("$project_root/$item");
     }
