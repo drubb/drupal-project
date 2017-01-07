@@ -96,12 +96,7 @@ class ScriptHandler
     public static function cleanupComposer(Event $event)
     {
         $fs = new Filesystem();
-        $project_root = getcwd();
-        // Remove stuff leftover by composer project
-        $stuff = ['LICENSE', '.travis.yml', 'README.md', 'phpunit.xml.dist', '.git'];
-        foreach ($stuff as $item) {
-            $fs->remove("$project_root/$item");
-        }
+        $fs->remove(['LICENSE', '.travis.yml', 'README.md', 'phpunit.xml.dist', '.git']);
 
     }
 
