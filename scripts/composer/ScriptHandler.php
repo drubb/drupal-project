@@ -72,7 +72,7 @@ class ScriptHandler
         }
 
         // Add a local settings file
-        if (!$fs->exists($web_root . '/sites/default/local.settings.php')) {
+        if (!$fs->exists($web_root . '/sites/default/settings.local.php')) {
             $settings = '<?php' . PHP_EOL;
             $settings .= '$settings["file_public_path"] = "sites/default/files";' . PHP_EOL;
             $settings .= '$settings["file_private_path"] = "' . getcwd() . '/files/private";' . PHP_EOL;
