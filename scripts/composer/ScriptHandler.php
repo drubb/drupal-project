@@ -79,6 +79,8 @@ class ScriptHandler
             $settings .= '$config_directories[CONFIG_SYNC_DIRECTORY] = "' . getcwd() . '/config/sync";' . PHP_EOL;
             $fs->dumpFile($web_root . '/sites/default/settings.local.php', $settings);
             $fs->chmod($web_root . '/sites/default/settings.local.php', 0777);
+        } else {
+            return;
         }
 
         // Activate the local settings file in settings.php by uncommenting the last 3 lines
