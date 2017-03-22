@@ -48,9 +48,11 @@
       "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
     ],
     "post-install-cmd": [
+      "@drupal-scaffold",
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-update-cmd": [
+      "@drupal-scaffold",
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-create-project-cmd": [
