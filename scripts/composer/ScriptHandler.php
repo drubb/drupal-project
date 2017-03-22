@@ -34,6 +34,7 @@ class ScriptHandler
             "$web_root/modules/custom",
             "$web_root/profiles/contrib",
             "$web_root/profiles/custom",
+            "$web_root/sites/default",
             "$web_root/themes/contrib",
             "$web_root/themes/custom",
             "$project_root/drush/contrib",
