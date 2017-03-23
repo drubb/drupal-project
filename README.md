@@ -28,6 +28,8 @@ After that you can create the project:
 composer create-project drubb/drupal-project:8.x-dev some-dir --stability dev --no-interaction
 ```
 
+It's a good idea to create a git repository add this point: `git init`.
+
 ## What does the template do?
 
 When installing the given `composer.json` some tasks are taken care of:
@@ -54,7 +56,7 @@ updated. If you customize any of the "scaffolding" files (eg .htaccess or robots
 you may need to merge conflicts if any of your modified files are updated in a 
 new release of Drupal core.
 
-Follow the steps below to update your core files.
+Follow the steps below to update your core files (run this commands in your project root):
 
 1. Run `composer update drupal/core --with-dependencies` to update Drupal Core and its dependencies.
 2. Run `git diff` to determine if any of the scaffolding files have changed. 
@@ -67,36 +69,41 @@ You can add contributed modules using the composer *require* command. Example:
 
 ```composer require drupal/devel```
 
+Run this command in your project root.
+
+
 ## Updating contributed modules
 
 You can update contributed modules using the composer *update* command. Example:
 
 ```composer update drupal/devel --with-dependencies```
 
+Run this command in your project root.
+
 ## Using Composer with custom modules
 
-You can add Composer support to your custom modules using the following steps:
+You can add Composer support to your custom modules using the following steps (run these commands in your module folder):
 
 * Add a basic composer.json file to your module's folder: `composer init --n`
 * Add dependencies for your custom module: `composer require mpdf/mpdf --no-update`
 
 In this example, the custom module is using the mpdf PHP library. The flag '--no-update' tells
 Composer not to download the library to your custom module's folder, as we need to store it in the
-central vendor folder of our project. The Composer Merge plugin takes care of this, we'll just need
-to update our main Composer manifest:
+central vendor folder of our project. The [Composer Merge](https://github.com/wikimedia/composer-merge-plugin) plugin takes care of this, we'll just need
+to update our main Composer manifest (composer.json):
 
 ```
 composer update --lock
 ```
-This will add our custom module's dependency to the main Composer manifest.
+Run this command in your project root. This will add our custom module's dependency to the main Composer manifest.
 
 ### How can I apply patches to downloaded modules?
 
 If you need to apply patches, you can do so with the 
 [composer-patches](https://github.com/cweagans/composer-patches) plugin.
 
-To add a patch to drupal module foobar insert the patches section in the extra 
-section of composer.json:
+To add a patch to Drupal module foobar insert the patches section in the extra 
+section of composer.json, in your project root:
 
 ```json
 "extra": {
