@@ -89,8 +89,7 @@ class ScriptHandler {
       $settings .= '$config_directories[CONFIG_SYNC_DIRECTORY] = "' . getcwd() . '/config/sync";' . PHP_EOL;
       $fs->dumpFile($web_root . '/sites/default/settings.local.php', $settings);
       $fs->chmod($web_root . '/sites/default/settings.local.php', 0777);
-      $file = '__DIR__/settings.local.php';
-      $line = "file_exists($file) and include $file;";
+      $line = "file_exists(__DIR__ . '/settings.local.php') and include __DIR__ . '/settings.local.php';";
       file_put_contents($web_root . '/sites/default/settings.php', $line, FILE_APPEND);
     }
 
