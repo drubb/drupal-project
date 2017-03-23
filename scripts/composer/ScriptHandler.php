@@ -90,7 +90,7 @@ class ScriptHandler {
       $fs->dumpFile($web_root . '/sites/default/settings.local.php', $settings);
       $fs->chmod($web_root . '/sites/default/settings.local.php', 0777);
       $file = '__DIR__/settings.local.php';
-      $line = "file_exists($file) and include $file";
+      $line = "file_exists($file) and include $file;";
       file_put_contents($web_root . '/sites/default/settings.php', $line, FILE_APPEND);
     }
 
