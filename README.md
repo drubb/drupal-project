@@ -28,7 +28,7 @@ After that you can create the project:
 composer create-project drubb/drupal-project:8.x-dev some-dir --stability dev --no-interaction
 ```
 
-It's a good idea to create a git repository add this point: `git init`.
+It's a good idea to create a git repository at this point: `git init`.
 
 ## What does the template do?
 
