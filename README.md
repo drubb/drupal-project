@@ -28,14 +28,6 @@ After that you can create the project:
 composer create-project drubb/drupal-project:8.x-dev some-dir --stability dev --no-interaction
 ```
 
-With `composer require ...` you can download new dependencies to your 
-installation.
-
-```
-cd some-dir
-composer require drupal/devel:~1.0
-```
-
 ## What does the template do?
 
 When installing the given `composer.json` some tasks are taken care of:
@@ -67,24 +59,45 @@ Follow the steps below to update your core files.
 1. Run `composer update drupal/core --with-dependencies` to update Drupal Core and its dependencies.
 2. Run `git diff` to determine if any of the scaffolding files have changed. 
    Review the files for any changes and restore any customizations to 
-  `.htaccess` or `robots.txt`.
-3. Commit everything all together in a single commit, so `web` will remain in
-   sync with the `core` when checking out branches or running `git bisect`.
-4. In the event that there are non-trivial conflicts in step 2, you may wish 
-   to perform these steps on a branch, and use `git merge` to combine the 
-   updated core files with your customized files. This facilitates the use 
-   of a [three-way merge tool such as kdiff3](http://www.gitshah.com/2010/12/how-to-setup-kdiff-as-diff-tool-for-git.html). This setup is not necessary if your changes are simple; 
-   keeping all of your modifications at the beginning or end of the file is a 
-   good strategy to keep merges easy.
+  `.htaccess` or `robots.txt`. Commit your changes to git.
+
+## Installing contributed modules
+
+You can add contributed modules using the composer *require* command. Example:
+
+```composer require drupal/devel```
+
+## Updating contributed modules
+
+You can update contributed modules using the composer *update* command. Example:
+
+```composer update drupal/devel --with-dependencies```
+
+## Using Composer with custom modules
+
+You can add Composer support to your custom modules using the following steps:
+
+* Add a basic composer.json file to your module's folder: `composer init --n`
+* Add dependencies for your custom module: `composer require mpdf/mpdf --no-update`
+
+In this example, the custom module is using the mpdf PHP library. The flag '--no-update' tells
+Composer not to download the library to your custom module's folder, as we need to store it in the
+central vendor folder of our project. The Composer Merge plugin takes care of this, we'll just need
+to update our main Composer manifest:
+
+```
+composer update --lock
+```
+This will add our custom module's dependency to the main Composer manifest.
 
 ### How can I apply patches to downloaded modules?
 
-If you need to apply patches (depending on the project being modified, a pull 
-request is often a better solution), you can do so with the 
+If you need to apply patches, you can do so with the 
 [composer-patches](https://github.com/cweagans/composer-patches) plugin.
 
 To add a patch to drupal module foobar insert the patches section in the extra 
 section of composer.json:
+
 ```json
 "extra": {
     "patches": {
