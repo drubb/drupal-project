@@ -22,6 +22,9 @@
     "zaporylie/drupal-composer-drush-policy": "^0.1",
     "hirak/prestissimo": "^0.3"
   },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8",
+  },
   "conflict": {
     "drupal/drupal": "*"
   },
