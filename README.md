@@ -25,7 +25,7 @@ First you need to [install composer](https://getcomposer.org/doc/00-intro.md#ins
 After that you can create the project:
 
 ```
-composer create-project drubb/drupal-project:8.x-dev some-dir --stability dev --no-interaction
+composer create-project drubb/drupal-project some-dir --stability dev --no-interaction
 ```
 
 It's a good idea to create a git repository at this point: `git init`.
