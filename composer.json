@@ -42,7 +42,7 @@
     ]
   },
   "scripts": {
-    "post-installco-cmd": [
+    "post-install-cmd": [
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-update-cmd": [
