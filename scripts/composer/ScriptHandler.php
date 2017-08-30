@@ -7,8 +7,6 @@
 
 namespace DrupalProject\composer;
 
-use Composer\Script\Event;
-use Composer\Semver\Comparator;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ScriptHandler {
@@ -26,10 +24,8 @@ class ScriptHandler {
   /**
    * Creates directories, links and files during project creation
    * or updates
-   *
-   * @param \Composer\Script\Event $event
    */
-  public static function createRequiredFiles(Event $event) {
+  public static function createRequiredFiles() {
 
     $fs = new Filesystem();
     $project_root = getcwd();
@@ -98,10 +94,8 @@ class ScriptHandler {
 
   /**
    * Remove some leftover project files after project creation
-   *
-   * @param \Composer\Script\Event $event
    */
-  public static function cleanupComposer(Event $event) {
+  public static function cleanupComposer() {
     $fs = new Filesystem();
     $fs->remove([
       'LICENSE',
