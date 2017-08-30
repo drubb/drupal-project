@@ -42,10 +42,7 @@
     ]
   },
   "scripts": {
-    "post-installco-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-    ],
-    "post-update-cmd": [
+    "post-drupal-scaffold-cmd": [
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-create-project-cmd": [
